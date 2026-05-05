@@ -385,7 +385,7 @@ async function handleSubmit() {
 }
 
 @media (max-width: 900px) {
-  .contact { padding: 100px 0; }
+  .contact { padding: 60px 0; }
   .contact__grid {
     grid-template-columns: 1fr;
   }

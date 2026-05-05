@@ -157,7 +157,7 @@ onMounted(() => setTimeout(() => (visible.value = true), 80))
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 120px 0 100px; text-align: center; }
+  .hero { padding: 80px 0 60px; text-align: center; }
   .hero__title { font-size: 34px; }
   .hero__subtitle { margin: 0 auto 32px; }
   .hero__actions { flex-direction: column; gap: 12px; }
