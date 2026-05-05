@@ -29,14 +29,39 @@ const translatedContactItems = computed(() => [
 
 ])
 
+import emailjs from '@emailjs/browser'
+
 async function handleSubmit() {
   if (!form.name || !form.email || !form.message) return
   status.value = 'sending'
-  await new Promise(r => setTimeout(r, 1200))
-  status.value = 'success'
-  form.name = ''
-  form.email = ''
-  form.message = ''
+  
+  try {
+    // Nota: Substitua os IDs abaixo pelos seus IDs reais do EmailJS (emailjs.com)
+    await emailjs.send(
+      'service_cidix',   // Substitua pelo seu Service ID
+      'template_cidix',  // Substitua pelo seu Template ID
+      {
+        from_name: form.name,
+        from_email: form.email,
+        message: form.message,
+        to_email: 'Connect@cidixsolutios.com'
+      },
+      'YOUR_PUBLIC_KEY'   // Substitua pela sua Public Key
+    )
+    
+    status.value = 'success'
+    form.name = ''
+    form.email = ''
+    form.message = ''
+  } catch (error) {
+    console.error('Erro ao enviar email:', error)
+    status.value = 'error'
+    // Fallback para simulação se os IDs não estiverem configurados (apenas para teste)
+    if (import.meta.env.DEV) {
+      await new Promise(r => setTimeout(r, 1200))
+      status.value = 'success'
+    }
+  }
 }
 </script>
 

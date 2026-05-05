@@ -80,7 +80,7 @@ const messages = {
         name: 'Nome',
         name_ph: 'O seu nome',
         email: 'E-mail',
-        email_ph: 'o.seu@email.com',
+        email_ph: "o.seu{'@'}email.com",
         message: 'Mensagem',
         message_ph: 'Descreva como podemos ajudar...',
         submit: 'Enviar Mensagem',
@@ -177,7 +177,7 @@ const messages = {
         name: 'Name',
         name_ph: 'Your name',
         email: 'E-mail',
-        email_ph: 'your@email.com',
+        email_ph: "your{'@'}email.com",
         message: 'Message',
         message_ph: 'Describe how we can help...',
         submit: 'Send Message',
@@ -198,6 +198,7 @@ const messages = {
 }
 
 const i18n = createI18n({
+  legacy: false,
   locale: 'pt',
   fallbackLocale: 'en',
   messages,
