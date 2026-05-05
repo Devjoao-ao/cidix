@@ -156,6 +156,7 @@ const translatedServices = computed(() => [
 }
 
 @media (max-width: 680px) {
+  .services { padding: 100px 0; }
   .services__grid {
     grid-template-columns: 1fr;
   }

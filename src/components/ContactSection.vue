@@ -30,6 +30,7 @@ const translatedContactItems = computed(() => [
 ])
 
 import emailjs from '@emailjs/browser'
+import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY } from '../emailjs.config'
 
 async function handleSubmit() {
   if (!form.name || !form.email || !form.message) return
@@ -38,15 +39,15 @@ async function handleSubmit() {
   try {
     // Nota: Substitua os IDs abaixo pelos seus IDs reais do EmailJS (emailjs.com)
     await emailjs.send(
-      'service_cidix',   // Substitua pelo seu Service ID
-      'template_cidix',  // Substitua pelo seu Template ID
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
       {
         from_name: form.name,
         from_email: form.email,
         message: form.message,
         to_email: 'Connect@cidixsolutios.com'
       },
-      'YOUR_PUBLIC_KEY'   // Substitua pela sua Public Key
+      EMAILJS_PUBLIC_KEY
     )
     
     status.value = 'success'
@@ -384,6 +385,7 @@ async function handleSubmit() {
 }
 
 @media (max-width: 900px) {
+  .contact { padding: 100px 0; }
   .contact__grid {
     grid-template-columns: 1fr;
   }

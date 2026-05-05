@@ -146,7 +146,7 @@ const translatedPillars = computed(() => [
 }
 
 @media (max-width: 768px) {
-  .about { padding: 80px 0; }
+  .about { padding: 100px 0; }
   .about__title { font-size: 32px; text-align: center; }
   .about__text { text-align: center; }
   .section-label { margin: 0 auto 18px; display: table; }
