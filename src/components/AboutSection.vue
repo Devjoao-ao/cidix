@@ -1,21 +1,26 @@
 <script setup>
-const pillars = [
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const translatedPillars = computed(() => [
   {
     icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-    title: 'Confiança',
-    text: 'Parceiro tecnológico comprometido com a integridade e transparência em cada projeto.',
+    title: t('about.pillars.trust_title'),
+    text: t('about.pillars.trust_desc'),
   },
   {
     icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>`,
-    title: 'Inovação',
-    text: 'Utilizamos as mais recentes tecnologias para entregar soluções modernas e eficazes.',
+    title: t('about.pillars.innovation_title'),
+    text: t('about.pillars.innovation_desc'),
   },
   {
     icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    title: 'Proximidade',
-    text: 'Construímos relações duradouras, entendendo as necessidades específicas de cada cliente.',
+    title: t('about.pillars.proximity_title'),
+    text: t('about.pillars.proximity_desc'),
   },
-]
+])
 </script>
 
 <template>
@@ -24,27 +29,22 @@ const pillars = [
     <div class="container">
       <div class="about__grid">
         <div class="about__content">
-          <p class="section-label">Sobre a CIDIX</p>
+          <p class="section-label">{{ $t('about.label') }}</p>
 
           <h2 class="about__title">
-            Tecnologia ao serviço do <span class="gradient-text">seu sucesso</span>
+            {{ $t('about.title_1') }} <span class="gradient-text">{{ $t('about.title_2') }}</span>
           </h2>
 
           <p class="about__text">
-            A CIDIX é uma empresa especializada em soluções digitais e tecnológicas
-            para organizações que pretendem crescer com eficiência e segurança no
-            ambiente digital moderno.
+            {{ $t('about.text_1') }}
           </p>
 
           <p class="about__text">
-            Com uma equipa altamente qualificada, oferecemos um portfólio completo
-            de serviços — desde infraestrutura cloud e segurança de dados até
-            criação de websites e software de gestão — tudo pensado para
-            responder às exigências reais do mercado.
+            {{ $t('about.text_2') }}
           </p>
 
           <div class="about__pillars">
-            <div v-for="p in pillars" :key="p.title" class="pillar">
+            <div v-for="p in translatedPillars" :key="p.title" class="pillar">
               <div class="pillar__icon" v-html="p.icon" />
               <div>
                 <h3 class="pillar__title">{{ p.title }}</h3>

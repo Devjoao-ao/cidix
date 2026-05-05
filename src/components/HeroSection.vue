@@ -10,28 +10,26 @@ onMounted(() => setTimeout(() => (visible.value = true), 80))
     <div class="container hero__inner" :class="{ 'hero__inner--visible': visible }">
       <div class="hero__badge">
         <span class="hero__badge-dot" />
-        Tecnologia de confiança para empresas
+        {{ $t('hero.badge') }}
       </div>
 
       <h1 class="hero__title">
-        Soluções digitais que <span class="gradient-text">impulsionam</span> o seu negócio
+        {{ $t('hero.title_1') }} <span class="gradient-text">{{ $t('hero.title_2') }}</span> {{ $t('hero.title_3') }}
       </h1>
 
       <p class="hero__subtitle">
-        A CIDIX oferece serviços tecnológicos completos — desde licenciamento de
-        software até infraestrutura cloud — para que a sua empresa opere com mais
-        eficiência, segurança e escala.
+        {{ $t('hero.subtitle') }}
       </p>
 
       <div class="hero__actions">
         <a href="#contacto" class="btn btn--primary">
-          Fale Connosco
+          {{ $t('hero.contact_us') }}
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
         <a href="#servicos" class="btn btn--ghost">
-          Ver Serviços
+          {{ $t('hero.view_services') }}
         </a>
       </div>
 

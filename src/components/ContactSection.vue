@@ -1,29 +1,33 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const form = reactive({ name: '', email: '', message: '' })
 const status = ref('idle') // idle | sending | success | error
 
-const contactItems = [
+const translatedContactItems = computed(() => [
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
-    label: 'E-mail',
+    label: t('contact.email'),
     value: 'Connect@cidixsolutios.com',
     href: 'mailto:Connect@cidixsolutios.com',
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.12 6.12l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
-    label: 'Telefone / WhatsApp',
+    label: t('contact.angola'),
     value: '+244 922 806 791',
     href: 'https://wa.me/244922806791',
   },
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-    label: 'Website',
-    value: 'cidixsolutios.com',
-    href: 'https://cidixsolutios.com',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.12 6.12l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+    label: t('contact.us'),
+    value: '+1 (855) 482-4552',
+    href: 'tel:+18554824552',
   },
-]
+
+])
 
 async function handleSubmit() {
   if (!form.name || !form.email || !form.message) return
@@ -42,21 +46,20 @@ async function handleSubmit() {
 
     <div class="container">
       <div class="contact__header">
-        <p class="section-label">Contacto</p>
+        <p class="section-label">{{ $t('contact.label') }}</p>
         <h2 class="contact__title">
-          Vamos trabalhar<br />
-          <span class="gradient-text">juntos</span>
+          {{ $t('contact.title_1') }}<br />
+          <span class="gradient-text">{{ $t('contact.title_2') }}</span>
         </h2>
         <p class="contact__subtitle">
-          Pronto para transformar a tecnologia da sua empresa?
-          Fale connosco e descubra como a CIDIX pode ajudá-lo.
+          {{ $t('contact.subtitle') }}
         </p>
       </div>
 
       <div class="contact__grid">
         <div class="contact__info">
           <div
-            v-for="item in contactItems"
+            v-for="item in translatedContactItems"
             :key="item.label"
             class="contact__item"
           >
@@ -73,7 +76,7 @@ async function handleSubmit() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            Respondemos em até 24 horas nos dias úteis.
+            {{ $t('contact.note') }}
           </div>
         </div>
 
@@ -82,43 +85,43 @@ async function handleSubmit() {
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
             </svg>
-            <span>Mensagem enviada! Entraremos em contacto em breve.</span>
+            <span>{{ $t('contact.form.success') }}</span>
           </div>
 
           <template v-else>
             <div class="form-group">
-              <label class="form-label" for="name">Nome</label>
+              <label class="form-label" for="name">{{ $t('contact.form.name') }}</label>
               <input
                 id="name"
                 v-model="form.name"
                 type="text"
                 class="form-input"
-                placeholder="O seu nome"
+                :placeholder="$t('contact.form.name_ph')"
                 required
                 autocomplete="name"
               />
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="email">E-mail</label>
+              <label class="form-label" for="email">{{ $t('contact.form.email') }}</label>
               <input
                 id="email"
                 v-model="form.email"
                 type="email"
                 class="form-input"
-                placeholder="o.seu@email.com"
+                :placeholder="$t('contact.form.email_ph')"
                 required
                 autocomplete="email"
               />
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="message">Mensagem</label>
+              <label class="form-label" for="message">{{ $t('contact.form.message') }}</label>
               <textarea
                 id="message"
                 v-model="form.message"
                 class="form-input form-textarea"
-                placeholder="Descreva como podemos ajudar..."
+                :placeholder="$t('contact.form.message_ph')"
                 rows="5"
                 required
               />
@@ -130,7 +133,7 @@ async function handleSubmit() {
               :disabled="status === 'sending'"
             >
               <span v-if="status === 'sending'" class="form-spinner" />
-              <span v-else>Enviar Mensagem</span>
+              <span v-else>{{ $t('contact.form.submit') }}</span>
               <svg v-if="status !== 'sending'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
               </svg>

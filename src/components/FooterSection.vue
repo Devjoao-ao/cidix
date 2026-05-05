@@ -1,22 +1,26 @@
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 const year = new Date().getFullYear()
 
-const quickLinks = [
-  { label: 'Início', href: '#hero' },
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Serviços', href: '#servicos' },
-  { label: 'Contacto', href: '#contacto' },
-]
+const quickLinks = computed(() => [
+  { label: t('nav.home'), href: '#hero' },
+  { label: t('nav.about'), href: '#sobre' },
+  { label: t('nav.services'), href: '#servicos' },
+  { label: t('nav.contact'), href: '#contacto' },
+])
 
-const services = [
-  'Licenças de Software',
-  'Criação de Websites',
-  'Hospedagem de Sites',
-  'Serviços de Cloud',
-  'Segurança de Dados',
-  'E-mail Corporativo',
-  'Serviços de VoIP',
-]
+const services = computed(() => [
+  t('services.list.s1_title'),
+  t('services.list.s2_title'),
+  t('services.list.s4_title'),
+  t('services.list.s7_title'),
+  t('services.list.s8_title'),
+  t('services.list.s9_title'),
+  t('services.list.s13_title'),
+])
 </script>
 
 <template>
@@ -29,8 +33,7 @@ const services = [
           <img src="/logo.png" alt="CIDIX Logo" class="footer__logo-img" />
         </a>
         <p class="footer__brand-text">
-          Soluções digitais e tecnológicas para empresas que querem crescer
-          com segurança, eficiência e inovação.
+          {{ $t('footer.brand_text') }}
         </p>
         <div class="footer__contact-mini">
           <a href="mailto:Connect@cidixsolutios.com" class="footer__contact-link">
@@ -39,13 +42,17 @@ const services = [
           </a>
           <a href="https://wa.me/244922806791" class="footer__contact-link" target="_blank" rel="noopener">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.12 6.12l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            +244 922 806 791
+            {{ $t('contact.angola') }}: +244 922 806 791
+          </a>
+          <a href="tel:+18554824552" class="footer__contact-link" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.12 6.12l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            {{ $t('contact.us') }}: +1 (855) 482-4552
           </a>
         </div>
       </div>
 
       <div class="footer__col">
-        <h4 class="footer__col-title">Navegação</h4>
+        <h4 class="footer__col-title">{{ $t('footer.nav') }}</h4>
         <ul class="footer__links">
           <li v-for="link in quickLinks" :key="link.label">
             <a :href="link.href" class="footer__link">{{ link.label }}</a>
@@ -54,7 +61,7 @@ const services = [
       </div>
 
       <div class="footer__col">
-        <h4 class="footer__col-title">Serviços</h4>
+        <h4 class="footer__col-title">{{ $t('footer.services') }}</h4>
         <ul class="footer__links">
           <li v-for="s in services" :key="s">
             <a href="#servicos" class="footer__link">{{ s }}</a>
@@ -63,18 +70,17 @@ const services = [
       </div>
 
       <div class="footer__col">
-        <h4 class="footer__col-title">Empresa</h4>
+        <h4 class="footer__col-title">{{ $t('footer.company') }}</h4>
         <ul class="footer__info">
           <li>
-            <span class="footer__info-label">NIF</span>
-            <span class="footer__info-value">5417396834</span>
+            <span class="footer__info-label" style="display: none;">{{ $t('footer.about') }}</span>
+            <span class="footer__info-value" style="display: block; line-height: 1.5; font-size: 13px;">
+              {{ $t('footer.about_text') }}
+            </span>
           </li>
+
           <li>
-            <span class="footer__info-label">Domínio</span>
-            <span class="footer__info-value">cidixsolutios.com</span>
-          </li>
-          <li>
-            <span class="footer__info-label">Suporte</span>
+            <span class="footer__info-label">{{ $t('footer.support') }}</span>
             <span class="footer__info-value">24/7</span>
           </li>
         </ul>
@@ -84,7 +90,7 @@ const services = [
     <div class="footer__bottom">
       <div class="container footer__bottom-inner">
         <p class="footer__copy">
-          &copy; {{ year }} CIDIX. Todos os direitos reservados.
+          &copy; {{ year }} {{ $t('footer.rights') }}
         </p>
       </div>
     </div>

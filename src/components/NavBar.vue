@@ -5,10 +5,10 @@ const scrolled = ref(false)
 const menuOpen = ref(false)
 
 const navLinks = [
-  { label: 'Início', href: '#hero' },
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Serviços', href: '#servicos' },
-  { label: 'Contacto', href: '#contacto' },
+  { key: 'home', href: '#hero' },
+  { key: 'about', href: '#sobre' },
+  { key: 'services', href: '#servicos' },
+  { key: 'contact', href: '#contacto' },
 ]
 
 function handleScroll() {
@@ -25,6 +25,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
 <template>
   <header :class="['navbar', { 'navbar--scrolled': scrolled }]">
+    <div class="navbar__bg" aria-hidden="true" />
     <div class="container navbar__inner">
       <a href="#hero" class="navbar__logo" @click="closeMenu">
         <img src="/logo.png" alt="CIDIX Logo" class="navbar__logo-img" />
@@ -33,13 +34,24 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
       <nav class="navbar__nav" :class="{ 'navbar__nav--open': menuOpen }">
         <a
           v-for="link in navLinks"
-          :key="link.label"
+          :key="link.key"
           :href="link.href"
           class="navbar__link"
           @click="closeMenu"
-        >{{ link.label }}</a>
+        >{{ $t(`nav.${link.key}`) }}</a>
+        
+        <div class="navbar__lang">
+          <a href="#" class="navbar__lang-btn" :class="{ active: $i18n.locale === 'pt' }" @click.prevent="$i18n.locale = 'pt'" aria-label="Português">
+            <img src="https://flagcdn.com/pt.svg" width="20" height="15" alt="PT" />
+          </a>
+          <span class="navbar__lang-sep">|</span>
+          <a href="#" class="navbar__lang-btn" :class="{ active: $i18n.locale === 'en' }" @click.prevent="$i18n.locale = 'en'" aria-label="English">
+            <img src="https://flagcdn.com/us.svg" width="20" height="15" alt="EN" />
+          </a>
+        </div>
+
         <a href="#contacto" class="navbar__cta" @click="closeMenu">
-          Fale Connosco
+          {{ $t('nav.contact_us') }}
         </a>
       </nav>
 
@@ -70,12 +82,22 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   transition: all var(--transition);
 }
 
+.navbar__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition: all var(--transition);
+}
+
 .navbar--scrolled {
+  padding: 12px 0;
+}
+
+.navbar--scrolled .navbar__bg {
   background: var(--bg-primary);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
-  padding: 12px 0;
   box-shadow: var(--shadow-sm);
 }
 
@@ -127,6 +149,38 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 .navbar__link:hover {
   color: var(--text-primary);
   background: var(--bg-secondary);
+}
+
+.navbar__lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
+  margin-right: 8px;
+}
+
+.navbar__lang-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: opacity var(--transition);
+  text-decoration: none;
+}
+
+.navbar__lang-btn img {
+  border-radius: 2px;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.navbar__lang-btn:hover, .navbar__lang-btn.active {
+  opacity: 1;
+}
+
+.navbar__lang-sep {
+  color: var(--border-strong);
+  font-size: 12px;
 }
 
 .navbar__cta {
